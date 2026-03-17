@@ -285,46 +285,37 @@ document.write('<th>15</th><th>30</th><th>45</th><th>60</th>');
 function highlightCurrent(){
 
 const now = new Date();
+
+const today = now.getDate();   // วันที่ปัจจุบัน เช่น 19
+const month = now.getMonth()+1; // เดือน
+
 const h = now.getHours().toString().padStart(2,'0');
 const m = now.getMinutes().toString().padStart(2,'0');
 
 const current = h+":"+m;
 
 const scheduleMap = {
-"Documentation Review":["08:00","09:00"],
-"Opening Meeting & Hospital Presentation":["09:00","09:30"],
-"Leadership Intervie / Strategic Plan & KPI Monitoring":["09:30","10:30"],
-"Trace ENV & Equipment / HRD":["10:30","12:00"],
-"Trace (ต่อ)":["13:00","14:30"],
-"HRD Interview":["14:30","15:30"],
-"ENV & Equipment Interview":["15:30","16:30"],
-"Trace Patient Care I (ER / Ward / กายภาพ / การแพทย์แผนไทย)":["09:30","12:00"],
-"Trace ทันตกรรม / Telemedicine":["13:00","14:30"],
-"PCT Interview":["14:30","15:30"],
-"MSO Interview":["15:30","16:30"],
-"Trace Patient Care II / ระบบ RM และ IC (OPD, ANC, LR, คลินิก NCD, คลินิกจิตเวช และยาเสพติด / Home Ward)":["09:30","12:00"],
-"IC Interview":["14:30","15:30"],
-"NSO Interview":["15:30","16:30"],
-"Surveyor Meeting":["16:30","18:00"],
-"Daily Briefing":["08:00","08:30"],
-"Trace IM / Lab / X-Ray":["08:30","11:00"],
-"IM Interview":["11:00","12:00"],
-"สัมภาษณ์ผู้รับผิดชอบงานพัฒนาคุณภาพ":["08:30","09:30"],
-"Trace Drug":["09:30","11:00"],
-"PTC Interview":["11:00","12:00"],
-"สัมภาษณ์ตัวแทนชุมชน":["08:30","09:30"],
-"สัมภาษณ์งานบริการด้านปฐมภูมิ และองค์รวม Home-based care":["09:30","11:00"],
-"RM Interview":["11:00","12:00"],
-"Share and Learn session":["13:00","14:30"],
-"พบผู้บริหาร":["15:30","16:00"],
-"Exit Conference":["16:00","16:30"]
+"Documentation Review":{date:17,start:"08:00",end:"09:00"},
+"Opening Meeting & Hospital Presentation":{date:17,start:"09:00",end:"09:30"},
+"Leadership Interview / Strategic Plan & KPI Monitoring":{date:17,start:"09:30",end:"10:30"},
+"Trace ENV & Equipment / HRD":{date:17,start:"10:30",end:"12:00"},
+"Trace (ต่อ)":{date:17,start:"13:00",end:"14:30"},
+"HRD Interview":{date:17,start:"14:30",end:"15:30"},
+"ENV & Equipment Interview":{date:17,start:"15:30",end:"16:30"},
+"Surveyor Meeting":{date:17,start:"16:30",end:"18:00"},
+
+"Daily Briefing":{date:20,start:"08:00",end:"08:30"},
+"Trace IM / Lab / X-Ray":{date:20,start:"08:30",end:"11:00"},
+"IM Interview":{date:20,start:"11:00",end:"12:00"},
+"Share and Learn session":{date:20,start:"13:00",end:"14:30"},
+"พบผู้บริหาร":{date:20,start:"15:30",end:"16:00"},
+"Exit Conference":{date:20,start:"16:00",end:"16:30"}
 };
 
 const cells = document.querySelectorAll("td");
 
 cells.forEach(cell=>{
 
-// เก็บข้อความเดิมครั้งแรก
 if(!cell.dataset.base){
 cell.dataset.base = cell.innerText.trim();
 }
@@ -332,19 +323,22 @@ cell.dataset.base = cell.innerText.trim();
 const baseText = cell.dataset.base;
 
 cell.classList.remove("now");
-cell.innerHTML = baseText; // reset ก่อนทุกครั้ง
+cell.innerHTML = baseText;
 
 if(scheduleMap[baseText]){
 
-const start = scheduleMap[baseText][0];
-const end = scheduleMap[baseText][1];
+const activity = scheduleMap[baseText];
 
-if(current>=start && current<=end){
+if(today === activity.date){
+
+if(current >= activity.start && current <= activity.end){
 
 cell.classList.add("now");
 
 cell.innerHTML =
 baseText + "<br><span class='blink'>กำลังดำเนินการ</span>";
+
+}
 
 }
 
