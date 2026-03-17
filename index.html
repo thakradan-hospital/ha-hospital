@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HA Survey Schedule Dashboard</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+font-family:'Prompt',sans-serif;
+margin:0;
+background:linear-gradient(135deg,#dff6ff,#f0fff4,#eef2ff);
+height:100vh;
+overflow:hidden;
+color:#0f172a;
+}
+
+.dashboard{
+width:100vw;
+height:100vh;
+display:flex;
+flex-direction:column;
+padding:24px 36px;
+box-sizing:border-box;
+}
+
+.header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+background:linear-gradient(135deg,#0ea5e9,#22c55e);
+color:white;
+padding:18px 28px;
+border-radius:16px;
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
+margin-bottom:18px;
+}
+
+.header-title{
+text-align:left;
+}
+
+.header-title h1{
+font-size:34px;
+font-weight:700;
+margin:0;
+letter-spacing:.5px;
+}
+
+.header-title p{
+font-size:16px;
+margin-top:4px;
+opacity:.95;
+}
+
+.clock-box{
+background:white;
+color:#0ea5e9;
+padding:10px 18px;
+border-radius:12px;
+font-size:42px;
+font-weight:700;
+letter-spacing:2px;
+box-shadow:0 6px 14px rgba(0,0,0,0.15);
+}
+
+.table-container{
+flex:1;
+overflow:auto;
+background:white;
+border-radius:18px;
+box-shadow:0 18px 40px rgba(0,0,0,0.12);
+padding:12px;
+border:3px solid #e0f2fe;
+}
+
+/* ตาราง */
+
+table{
+border-collapse:collapse;
+width:100%;
+height:100%;
+font-size:15px;
+}
+
+th,td{
+border:1px solid #cbd5e1;
+text-align:center;
+padding:9px;
+}
+
+/* ทำเส้น grid ให้เหมือนกันทั้งตาราง */
+th{
+background:linear-gradient(180deg,#22c1c3,#0ea5e9);
+color:white;
+font-weight:600;
+font-size:13px;
+}
+
+td[rowspan="3"]{
+font-weight:600;
+background:#f8fafc;
+}
+
+/* สีทีม (สดใสสไตล์โรงพยาบาล) */
+.team1{
+background:#dbeafe;
+color:#1d4ed8;
+font-weight:600;
+}
+
+.team2{
+background:#dcfce7;
+color:#047857;
+font-weight:600;
+}
+
+.team3{
+background:#ffedd5;
+color:#c2410c;
+font-weight:600;
+}
+
+/* Meeting */
+.meeting{
+background:#ede9fe;
+color:#6d28d9;
+font-weight:600;
+}
+
+/* Break */
+.break{
+background:#fee2e2;
+color:#b91c1c;
+font-weight:600;
+}
+
+/* Highlight กิจกรรมปัจจุบันแบบเรียบง่าย */
+.now{
+font-weight:700;
+}
+
+.blink{
+color:white;
+background:#ef4444;
+padding:3px 10px;
+border-radius:10px;
+font-weight:700;
+font-size:12px;
+letter-spacing:.5px;
+animation:blinkText 2s infinite;
+}
+
+
+
+@keyframes blinkText{
+0%{opacity:1}
+50%{opacity:0}
+100%{opacity:1}
+}
+
+/* hover effect */
+td:hover{
+background:#f0f9ff;
+transition:0.2s;
+}
+
+/* Responsive */
+@media (max-width:1200px){
+table{font-size:13px}
+th,td{padding:6px}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<div class="header">
+
+<div class="header-title">
+<h1>HA Survey Schedule Dashboard</h1>
+<p>โรงพยาบาลท่ากระดาน • การเยี่ยมสำรวจคุณภาพ วันที่ 19 – 20 มีนาคม 2569</p>
+</div>
+
+<div class="clock-box" id="clock"></div>
+
+</div>
+
+<div class="table-container">
+<table id="scheduleTable">
+
+<tr>
+<th rowspan="2">วันที่</th>
+<th rowspan="2">ทีม</th>
+<th colspan="4">08:00-09:00</th>
+<th colspan="4">09:00-10:00</th>
+<th colspan="4">10:00-11:00</th>
+<th colspan="4">11:00-12:00</th>
+<th colspan="4">12:00-13:00</th>
+<th colspan="4">13:00-14:00</th>
+<th colspan="4">14:00-15:00</th>
+<th colspan="4">15:00-16:00</th>
+<th colspan="4">16:00-17:00</th>
+<th colspan="4">17:00-18:00</th>
+</tr>
+
+<tr>
+<script>
+for(let i=0;i<10;i++){
+document.write('<th>15</th><th>30</th><th>45</th><th>60</th>');
+}
+</script>
+</tr>
+
+<!-- 19 มีนาคม -->
+<tr>
+<td rowspan="3">19 มีนาคม 2569</td>
+<td class="team1">ทีม 1</td>
+<td colspan="4" rowspan="3" class="meeting">Documentation Review</td>
+<td colspan="2" rowspan="3" class="meeting">Opening Meeting & Hospital Presentation</td>
+<td colspan="4" class="team1">Leadership Interview / Strategic Plan & KPI Monitoring</td>
+<td colspan="6" class="team1">Trace ENV & Equipment / HRD</td>
+<td colspan="4" rowspan="3" class="break">พักรับประทานอาหาร</td>
+<td colspan="6" class="team1">Trace (ต่อ)</td>
+<td colspan="4" class="team1">HRD Interview</td>
+<td colspan="4" class="team1">ENV & Equipment Interview</td>
+<td colspan="6" rowspan="3" class="meeting">Surveyor Meeting</td>
+</tr>
+
+<tr>
+<td class="team2">ทีม 2</td>
+<td colspan="10" class="team2">Trace Patient Care I (ER / Ward / กายภาพ / การแพทย์แผนไทย)</td>
+<td colspan="6" class="team2">Trace ทันตกรรม / Telemedicine</td>
+<td colspan="4" class="team2">PCT Interview</td>
+<td colspan="4" class="team2">MSO Interview</td>
+</tr>
+
+<tr>
+<td class="team3">ทีม 3</td>
+<td colspan="10" class="team3">Trace Patient Care II / ระบบ RM และ IC (OPD, ANC, LR, คลินิก NCD, คลินิกจิตเวช และยาเสพติด / Home Ward)</td>
+<td colspan="6" class="team3">Trace (ต่อ)</td>
+<td colspan="4" class="team3">IC Interview</td>
+<td colspan="4" class="team3">NSO Interview</td>
+</tr>
+
+<!-- 20 มีนาคม -->
+<tr>
+<td rowspan="3">20 มีนาคม 2569</td>
+<td class="team1">ทีม 1</td>
+<td colspan="2" rowspan="3" class="meeting">Daily Briefing</td>
+<td colspan="10" class="team1">Trace IM / Lab / X-Ray</td>
+<td colspan="4" class="team1">IM Interview</td>
+<td colspan="4" rowspan="3" class="break">พักรับประทานอาหาร</td>
+<td colspan="6" rowspan="3" class="meeting">Share and Learn session</td>
+<td colspan="4" rowspan="3" class="meeting">Surveyor Meeting</td>
+<td colspan="2" rowspan="3" class="meeting">พบผู้บริหาร</td>
+<td colspan="2" rowspan="3" class="meeting">Exit Conference</td>
+</tr>
+
+<tr>
+<td class="team2">ทีม 2</td>
+<td colspan="4" class="team2">สัมภาษณ์ผู้รับผิดชอบงานพัฒนาคุณภาพ</td>
+<td colspan="6" class="team2">Trace Drug</td>
+<td colspan="4" class="team2">PTC Interview</td>
+</tr>
+
+<tr>
+<td class="team3">ทีม 3</td>
+<td colspan="4" class="team3">สัมภาษณ์ตัวแทนชุมชน</td>
+<td colspan="6" class="team3">สัมภาษณ์งานบริการด้านปฐมภูมิ และองค์รวม Home-based care</td>
+<td colspan="4" class="team3">RM Interview</td>
+</tr>
+
+</table>
+</div>
+
+</div>
+
+<script>
+function highlightCurrent(){
+
+const now = new Date();
+const h = now.getHours().toString().padStart(2,'0');
+const m = now.getMinutes().toString().padStart(2,'0');
+
+const current = h+":"+m;
+
+const scheduleMap = {
+"Documentation Review":["08:00","09:00"],
+"Opening Meeting & Hospital Presentation":["09:00","09:30"],
+"Leadership Intervie / Strategic Plan & KPI Monitoring":["09:30","10:30"],
+"Trace ENV & Equipment / HRD":["10:30","12:00"],
+"Trace (ต่อ)":["13:00","14:30"],
+"HRD Interview":["14:30","15:30"],
+"ENV & Equipment Interview":["15:30","16:30"],
+"Trace Patient Care I (ER / Ward / กายภาพ / การแพทย์แผนไทย)":["09:30","12:00"],
+"Trace ทันตกรรม / Telemedicine":["13:00","14:30"],
+"PCT Interview":["14:30","15:30"],
+"MSO Interview":["15:30","16:30"],
+"Trace Patient Care II / ระบบ RM และ IC (OPD, ANC, LR, คลินิก NCD, คลินิกจิตเวช และยาเสพติด / Home Ward)":["09:30","12:00"],
+"IC Interview":["14:30","15:30"],
+"NSO Interview":["15:30","16:30"],
+"Surveyor Meeting":["16:30","18:00"],
+"Daily Briefing":["08:00","08:30"],
+"Trace IM / Lab / X-Ray":["08:30","11:00"],
+"IM Interview":["11:00","12:00"],
+"สัมภาษณ์ผู้รับผิดชอบงานพัฒนาคุณภาพ":["08:30","09:30"],
+"Trace Drug":["09:30","11:00"],
+"PTC Interview":["11:00","12:00"],
+"สัมภาษณ์ตัวแทนชุมชน":["08:30","09:30"],
+"สัมภาษณ์งานบริการด้านปฐมภูมิ และองค์รวม Home-based care":["09:30","11:00"],
+"RM Interview":["11:00","12:00"],
+"Share and Learn session":["13:00","14:30"],
+"พบผู้บริหาร":["15:30","16:00"],
+"Exit Conference":["16:00","16:30"]
+};
+
+const cells = document.querySelectorAll("td");
+
+cells.forEach(cell=>{
+
+// เก็บข้อความเดิมครั้งแรก
+if(!cell.dataset.base){
+cell.dataset.base = cell.innerText.trim();
+}
+
+const baseText = cell.dataset.base;
+
+cell.classList.remove("now");
+cell.innerHTML = baseText; // reset ก่อนทุกครั้ง
+
+if(scheduleMap[baseText]){
+
+const start = scheduleMap[baseText][0];
+const end = scheduleMap[baseText][1];
+
+if(current>=start && current<=end){
+
+cell.classList.add("now");
+
+cell.innerHTML =
+baseText + "<br><span class='blink'>กำลังดำเนินการ</span>";
+
+}
+
+}
+
+});
+
+}
+function updateClock(){
+const now=new Date();
+const time=now.toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+document.getElementById('clock').innerText=time;
+}
+
+setInterval(updateClock,1000);
+setInterval(highlightCurrent,30000);
+updateClock();
+highlightCurrent();
+
+</script>
+
+<!-- Firebase -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyB-bPtPAh9cE2qhyBG2hl8uUMBG3JtSZM0",
+authDomain: "ha-dashboard-318e1.firebaseapp.com",
+projectId: "ha-dashboard-318e1",
+storageBucket: "ha-dashboard-318e1.firebasestorage.app",
+messagingSenderId: "728845907759",
+appId: "1:728845907759:web:748691f993881ce58413da"
+};
+
+initializeApp(firebaseConfig);
+</script>
+
+</body>
+</html>
